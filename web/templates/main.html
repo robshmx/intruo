@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buefy.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/intruo.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <title>INTRUO - Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea</title>
+</head>
+
+<body>
+    <section id="app" class="container">
+        <div class="columns is-multiline">
+            <div class="column is-8 is-offset-2 register">
+                <div class="columns">
+                    <div class="column left is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <img ref="logo" class="logo mb-3 animate__animated animate__infinite animate__slow animate__pulse" src="{{ url_for('static', filename='img/intruo_empty.svg') }}" alt="INTRUO Logo">
+                        <h1 class="title is-1">INTRUO</h1>
+                        <p>Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea</p>
+                    </div>
+
+                    <div class="column right has-text-centered">
+                        <h1 ref="page__title" class="title is-4 animate__animated animate__fadeInDown" v-html="page.title"></h1>
+                        <b-loading :is-full-page="false" v-model="page.loading" :can-cancel="false"></b-loading>
+                        <template v-if="page.alertMessage != null">
+                            <b-message type="is-warning" has-icon>
+                                <span v-html="page.alertMessage"></span>
+                            </b-message>
+                        </template>
+                        
+                        <!-- Step 0. Initalize application -->
+                        <template v-if="step == 0">
+                        </template>
+                        <!-- End: Step 0.Initalize application -->
+                        
+                        <!-- Step 1. INTRUO SCAN -->
+                        <template v-if="step == 1">
+                            <form v-on:submit.prevent="validateUrl">
+                                <b-field :type="form.domain.type" :message="form.domain.message">
+                                    <b-input ref="form__domain" v-model="form.domain.value" type="text" placeholder="Ingresa la URL a escanear"></b-input>
+                                </b-field>
+                                <b-button native-type="submit" value="SELECCIONAR MÓDULOS" class="mt-5" type="is-warning" size="is-small" icon-left="view-module" expanded>SELECCIONAR MÓDULOS</b-button>
+                                <br />
+                                <p class="description"><b>RENUNCIA</b></p>
+                                <p class="description">El uso de esta herramienta (INTRUO) para escanear objetivos sin el consentimiento previo mutuo se considerará ilegal, por tanto, es responsabilidad del usuario final obedecer todas las leyes locales, estatales y federales aplicables. Como desarrollador de este proyecto de investigación no asumo ninguna responsabilidad del mal uso o daño causado por este programa.<br>Este proyecto de investigación no pretende investigar y/o encontrar vulnerabilidades que NO existen o no se encuentran registradas por los distintos medios de divulgación como Internet o fuentes de consulta, sin embargo, al desarrollar o utilizar la herramienta es posible encontrar algún tipo de vulnerabilidad que no se encuentre registrada o que no se encuentre listada en los objetivos específicos de la investigación.</p>
+                            </form>
+                            <b-button v-on:click="apiIntruoHistory" class="mt-5" type="is-warning" size="is-small" icon-left="eye" expanded>HISTORIAL</b-button>
+                        </template>
+                        <!-- End: Step 1. INTRUO SCAN -->
+                        
+                        <!-- Step 2. INTRUO SCAN: Select Modules -->
+                        <template v-if="step == 2">
+                            <form v-on:submit.prevent="dialogTermAndConditions">
+                                <div class="columns is-multiline has-text-left">
+                                    <div class="column is-6" v-for="(obj, idx) in form.modules.options" :key="idx">
+                                        <b-field>
+                                            <b-checkbox v-model="form.modules.value" :native-value="obj">[[ obj ]]</b-checkbox>
+                                        </b-field>
+                                    </div>
+                                    <div class="column is-6">
+                                        <b-field>
+                                            <b-checkbox disabled>SQL INJECTION</b-checkbox>
+                                        </b-field>
+                                    </div>
+                                    <div class="column is-6">
+                                        <b-field>
+                                            <b-checkbox disabled>WEAK PASSWORD</b-checkbox>
+                                        </b-field>
+                                    </div>
+                                </div>
+  
+                                <b-button native-type="submit" value="INICIAR ESCANEO" class="mt-5" type="is-warning" size="is-small" icon-left="cube-scan" expanded>INICIAR ESCANEO</b-button>
+                            </form>
+                            <b-button v-on:click="step = 1" class="mt-5" type="is-danger" size="is-small" icon-left="arrow-left" expanded>REGRESAR</b-button>
+                        </template>
+                        <!-- End: Step 2. INTRUO SCAN: Select Modules -->
+                        
+                        <!-- Step 3. INTRUO SCAN: Run Modules -->
+                        <template v-if="step == 3">
+                            <template v-if="result.pageOnline != null">
+                                <template v-if="result.pageOnline">
+                                    <p class="has-text-success">La página se encuentra en línea</p>
+                                </template>
+                                <template v-if="!result.pageOnline">
+                                    <p class="has-text-danger">La página <b>NO</b> se encuentra en línea</p>
+                                    <p class="has-text-danger">Verifica que la página se encuentre en línea accediendo desde este <b><a :href="form.domain.value" target="_blank">LINK</a></b></p>
+                                    <b-button v-on:click="step = 1" class="mt-5" type="is-danger" size="is-small" icon-left="arrow-left" expanded>REGRESAR</b-button>
+                                </template>
+                            </template>
+                            <template v-if="result.screenshot != null">
+                                <img class="animate__animated animate__fadeIn" :src="result.screenshot" alt="Page screenshot">
+                            </template>
+                            <template v-if="result.waitingForResult && result.done != true">
+                                <p>Estamos realizando el escaneo. Este proceso puede demorar varios minutos, dependiendo de la cantidad de módulos seleccionados y de la respuesta del servidor objetivo.</p>
+                            </template>
+                            <template v-if="result.done">
+                                <p><b>¡Análisis completado!</b></p>
+                                <div class="columns is-multiline mt-3">
+                                    <div class="column is-12">
+                                        <b-button tag="a" :href="`/resultado/${result.public_id}`" target="_blank" type="is-warning" size="is-small" icon-left="eye" expanded>VER RESULTADO</b-button>
+                                    </div>
+                                    <div class="column is-12">
+                                        <b-button tag="a" :href="`/api/download/html/${result.public_id}`" target="_blank" type="is-warning" size="is-small" icon-left="book-open-variant" expanded>DESCARGAR RESULTADO (HTML)</b-button>
+                                    </div>
+                                    <div class="column is-12">
+                                        <b-button tag="a" :href="`/api/download/json/${result.public_id}`" target="_blank" type="is-warning" size="is-small" icon-left="code-json" expanded>DESCARGAR RESULTADO (JSON)</b-button>
+                                    </div>
+                                    <div class="column is-12">
+                                        <b-button v-on:click="location.reload()" class="mt-5" type="is-danger" size="is-small" icon-left="arrow-left" expanded>NUEVO ESCANEO</b-button>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                        <!-- End: Step 3. INTRUO SCAN: Run Modules -->
+                        
+                        <!-- Step 99. Check configuration error -->
+                        <template v-if="step == 99">
+                            <form v-on:submit.prevent="apiConfigurationInstallDriver">
+                                <b-field class="file is-warning" :class="{'has-name': !!form.chromeDriver.value}" expanded>
+                                    <b-upload v-model="form.chromeDriver.value" class="file-label" expanded>
+                                        <span class="file-cta">
+                                            <b-icon size="is-small" class="file-icon" icon="application"></b-icon>
+                                            <span class="file-label">Click para seleccionar</span>
+                                        </span>
+                                        <span class="file-name" v-if="form.chromeDriver.value.name">
+                                            Driver seleccionado
+                                        </span>
+                                    </b-upload>
+                                </b-field>
+                                <b-button native-type="submit" value="INSTALAR" class="mt-5" type="is-warning" size="is-small" icon-left="upload" expanded>INSTALAR</b-button>
+                            </form>
+                        </template>
+                        <!-- End: Step 99. Check configuration -->
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="column is-8 is-offset-2">
+                <br>
+                <nav class="level">
+                    <div class="level-left">
+                        <small class="level-item">
+                            <a href="github.com" target="_blank">
+                                <b-icon icon="github" size="is-medium"></b-icon>
+                            </a>
+                        </small>
+                    </div>
+                    <div class="level-right">
+                        <small class="level-item" style="color: var(--textLight)">
+                            <p><b>INTRUO</b> para UNIR - Maestría en Seguridad Informática con <b-icon icon="heart" size="is-small"></b-icon> por <a class="ml-1" href="https://www.linkedin.com/in/roberto-salas-564368128/" target="_blank"> Roberto Salas Hernández</a></p>
+                        </small>
+                        <small class="level-item" style="color: var(--textLight)">
+                            v.1.0.0 beta
+                        </small>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <b-modal v-model="history.modal" scroll="keep">
+            <div class="card">
+                    <div class="content p-4">
+                        <div class="columns is-multiline has-text-centered">
+                            <div class="column is-12">
+                                <h1 class="title is-4">HISITORIAL DE ANÁLISIS EN INTRUO</h1>
+                            </div>
+                            <div class="column is-12">
+                                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                    <thead class="has-background-warning">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID Público</th>
+                                            <th>Dominio objetivo</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha final</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(obj, idx) in history.data">
+                                            <td>[[ idx + 1 ]]</td>
+                                            <td>[[ obj.public_id ]]</td>
+                                            <td>
+                                                <a :href="obj.domain" target="_blank">[[ obj.domain ]] <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></span></a>
+                                            </td>
+                                            <td>[[ obj.time_init ]]</td>
+                                            <td>[[ obj.time_end ]]</td>
+                                            <td>
+                                                <b-field>
+                                                    <p class="control">
+                                                        <b-button tag="a" :href="`/resultado/${obj.public_id}`" target="_blank" type="is-warning" size="is-small" icon-right="eye" expanded>VER</b-button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <b-button tag="a" :href="`/api/download/html/${obj.public_id}`" target="_blank" type="is-warning" size="is-small" icon-right="download" expanded>HTML</b-button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <b-button tag="a" :href="`/api/download/json/${obj.public_id}`" target="_blank" type="is-warning" size="is-small" icon-right="download" expanded>JSON</b-button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <b-button v-on:click="dialogDeleteIntruoScan(obj.public_id, obj.domain)" type="is-danger" size="is-small" icon-left="delete" expanded></b-button>
+                                                    </p>
+                                                </b-field>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </b-modal>
+    </section>
+    <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/buefy.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/intruo.js') }}"></script>
+</body>
+</html>

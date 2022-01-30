@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="https://cdn.funboxing.mx/intruo/favicon.ico">
+        <style>
+        [*__CSS_COMPILED__*]
+        </style>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+        <title>INTRUO ESCANEO - Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea</title>
+        <style>
+            .intruo__screenshot {
+                max-width: 500px;
+            }
+
+            .intruo__modules {
+                margin: 1rem 0;
+                transition: 0.3s;
+            }
+
+            .intruo__modules__emails {
+                background-color: transparent;
+                border: none;
+                width: 100%;
+            }
+
+            .intruo__modules ul {
+                padding-left: 15px;
+                list-style-type: square;
+            }
+            
+            .intruo__modules:hover {
+                background-color: #e6e3dc;
+            }
+
+            .intruo__modules__result {
+                width: 120px;
+            }
+        </style>
+    </head>
+<body>
+    <section id="app" class="container">
+        <div class="columns is-multiline">
+            <div class="column is-8 is-offset-2 register">
+                <div class="columns is-multiline">
+
+                    <div class="column is-12 is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <img ref="logo" class="logo mb-3 animate__animated animate__infinite animate__slow animate__pulse" src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjEgMjUyIj48cGF0aCBkPSJNMTEwLjQzLDBWMjUxLjgxUzIwMC43MSwyMjAuMTMsMjIwLjUsNTkuMzlaIiBzdHlsZT0iZmlsbDojNDI0MjQyIi8+PHBhdGggZD0iTTkzLDkuNDNWNTguMzRMODQuMTIsMTQuMiw2OS4xOCwyMi4yNmw4LjQ5LDE0NC42OEw1Mi44MSwzMS4wOSwzMC40Myw0My4xN2wxMyw5My4yMUwyMS43MSw0Ny44Ny4zNyw1OS4zOUMyMC4xNiwyMjAuMTMsMTEwLjQzLDI1MS44MSwxMTAuNDMsMjUxLjgxVjBaIiBzdHlsZT0iZmlsbDojZTgyNjI5Ii8+PC9zdmc+" alt="INTRUO Logo">
+                        <h1 class="title is-1">INTRUO</h1>
+                        <p>Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea</p>
+                    </div>
+                    <div class="column is-12">
+                        <hr>
+                    </div>
+
+                    <div class="column is-12 is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <h1 class="title is-4">INFORMACIÓN GENERAL DEL ANÁLISIS</h1>
+                        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                            <thead class="has-background-warning">
+                                <tr>
+                                    <th>Hora de inicio</th>
+                                    <th>Hora de termino</th>
+                                    <th>Tiempo de ejecución</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>[[ intruo_result.time_execution.init ]]</td>
+                                    <td>[[ intruo_result.time_execution.end ]]</td>
+                                    <td>[[ intruo_result.time_execution.total_time ]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                            <thead class="has-background-warning">
+                                <tr>
+                                    <th>IP Local</th>
+                                    <th>Hostname</th>
+                                    <th>OS Info</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>[[ intruo_result.computer_information.local_ip ]]</td>
+                                    <td>[[ intruo_result.computer_information.hostname ]]</td>
+                                    <td>[[ intruo_result.computer_information.os_info ]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="column is-12">
+                        <hr>
+                    </div>
+
+                    <div class="column is-12 is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <h1 class="title is-4">OBJETIVO</h1>
+                        <h2 class="title is-5 has-text-grey"><a :href="`http://${intruo_result.target_domain}`" target="_blank">[[ intruo_result.target_domain ]] <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></span></a></small></a></h2>
+                    </div>
+
+                    <div class="column is-12 is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <a :href="`http://${intruo_result.target_domain}`" target="_blank">
+                            <img class="intruo__screenshot" src="[*__SCREENSHOT__*]" alt="Page screenshot">
+                        </a>
+                        <p><small><i>Captura de pantalla del sitio objetivo.</i></small></p>
+                    </div>
+                    <div class="column is-12">
+                        <hr>
+                    </div>
+                    <div class="column is-12 is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <h1 class="title is-4">RESULTADO DEL ANÁLISIS</h1>
+                    </div>
+                    <div class="column is-12 intruo__modules" v-for="(mod, modTitle) in intruo_result.result" :key="modTitle">
+                        <template v-if="modTitle == 'INTRUO__HTTPS'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="2">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <td class="has-text-weight-bold">[[ mod.result == true ? 'Si' : 'No' ]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><b>Descripción:</b> Verifica si el sitio tiene un certificado de seguridad SSL instalado y es válido.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__IP_ADDRESS'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="2">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <td class="has-text-weight-bold">[[ mod.result ]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><b>Descripción:</b> Consulta el IP del servidor mediante el dominio dado.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__WHO_IS'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="3">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <td class="has-text-weight-bold">Propiedad</td>
+                                        <td class="has-text-weight-bold">Resultado</td>
+                                    </tr>
+                                    <tr v-for="(res, name) in mod.result" :key="name" v-if="res != null">
+                                        <td class="intruo__modules__result"></td>
+                                        <td>[[ capitalize(name).replace('_', ' ') ]]</td>
+                                        <template v-if="Array.isArray(res)">
+                                            <td>
+                                                <ul>
+                                                    <li v-for="val in res" :key="val">[[ val ]]</li>
+                                                </ul>
+                                            </td>
+                                        </template>
+                                        <template v-else>
+                                            <td>[[ res ]]</td>
+                                        </template>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Descripción:</b> El sistema WHOIS es un protocolo de consulta y respuesta gracias al cual es posible consultar bases de datos donde se almacenan los usuarios registrados que están en un recurso de Internet, esto puede ser un nombre de dominio o una dirección IP, pero lógicamente podemos usar whois para temas de gestión más avanzados.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__DNS_RECORDS'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="3">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <td class="has-text-weight-bold">DNS record</td>
+                                        <td class="has-text-weight-bold">Valor</td>
+                                    </tr>
+                                    <tr v-for="(res, name) in mod.result" :key="name">
+                                        <td class="intruo__modules__result"></td>
+                                        <td>[[ name ]]</td>
+                                        <td>[[ res ]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Descripción:</b> Los registros DNS (también conocidos como archivos de zona) son instrucciones radicadas en servidores DNS autoritativos que proporcionan información sobre un dominio, como la dirección IP asociada con este y cómo gestionar solicitudes dirigidas a dicho dominio.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__SERVER_LOCATION'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="3">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <td class="has-text-weight-bold">Atributo</td>
+                                        <td class="has-text-weight-bold">Valor</td>
+                                    </tr>
+                                    <tr v-for="(res, name) in mod.result" :key="name" v-if="res != null">
+                                        <td class="intruo__modules__result"></td>
+                                        <td>[[ capitalize(name).replace('_', ' ') ]]</td>
+                                        <td>[[ res ]]</td>
+                                    </tr>
+                                    <tr>
+                                        <!-- https://www.google.com/maps/place/47.6339+-122.3476 -->
+                                        <td class="has-text-centered" colspan="3">Ver locación en <b><a :href="`https://www.google.com/maps/place/${mod.result.latitude}+${mod.result.longitude}`" target="_blank">Google Maps <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></a></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Descripción:</b> Muestra la información de la localización del servidor.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__PORTS_OPEN'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="5">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <th class="has-text-weight-bold">Uso común</th>
+                                        <th class="has-text-weight-bold">Puerto</th>
+                                        <th class="has-text-weight-bold">Estado</th>
+                                        <th class="has-text-weight-bold">Excepción</th>
+                                    </tr>
+                                    <tr v-for="(res, port) in mod.result" :key="port" :class="{ 'has-background-success' : res.status == 'open', 'has-background-danger' : res.status == 'closed'}">
+                                        <td class="intruo__modules__result"></td>
+                                        <td class="has-text-weight-bold">[[ res.common_use_name ]]</td>
+                                        <td class="has-text-weight-bold">[[ port ]]</td>
+                                        <td class="has-text-weight-bold">[[ res.status == 'open' ? 'Abierto' : 'Cerrado' ]]</td>
+                                        <td class="has-text-weight-bold">[[ 'exception' in res ? (res.exception == 'timed out' ? 'Agotado el tiempo de espera' : res.exception) : '-' ]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><b>Descripción:</b> Verifica que puertos se encuentran abiertos en el servidor.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__PAGE_TECHNOLOGIES_INVOLVED'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="3">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <th class="has-text-weight-bold">Tecnología</th>
+                                        <th class="has-text-weight-bold">Software - Versión</th>
+                                    </tr>
+                                    <tr v-for="(res, tech) in mod.result" :key="tech">
+                                        <td class="intruo__modules__result"></td>
+                                        <td class="has-text-weight-bold">[[ tech ]]</td>
+                                        <td class="has-text-weight-bold">
+                                            <ul>
+                                                <li v-for="(sof, idx) in res" :key="idx">[[ sof.software ]] - [[ sof.version == 'Unknown' ? 'Desconocida' : sof.version ]]</li>
+                                            </ul>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Descripción:</b> Identifica las tecnologías y versiones utilizadas en la página. Cualquier atacante conociendo la tecnología y/o versión del software podrá tomar ventaja de vulnerabilidades expuestas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="has-text-centered" colspan="3"><b>Para buscar alguna vulnerabilidad en su software buscar en la base de datos: <a href="https://vuldb.com/es/" target="_blank">https://vuldb.com/es/</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__EMAILS_FOUND'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="3">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <th class="has-text-weight-bold">Correo</th>
+                                        <th class="has-text-weight-bold">Buscar en haveibeenpwned.com</th>
+                                    </tr>
+                                    <tr v-for="(email, idx) in mod.result" :key="idx">
+                                        <td class="intruo__modules__result"></td>
+                                        <td class="has-text-weight-bold">
+                                            <input class="intruo__modules__emails" :ref="`email_copy__${email}`" type="text" :value="email">
+                                        </td>
+                                        <td  class="has-text-weight-bold has-text-centered">
+                                            <b-button v-on:click="copyEmailAndOpenPage(`email_copy__${email}`)" type="is-warning" icon-left="content-copy">Buscar si ha sido comprometido</b-button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Descripción:</b> Identifica los correos electrónicos dentro de la página y se proporciona una base de datos con más <b>11,752,669,614 correos electrónicos comprometidos</b>.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__GOOGLE_DORKS'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="3">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <th class="has-text-weight-bold">Nombre del dork</th>
+                                        <th class="has-text-weight-bold">Link</th>
+                                    </tr>
+                                    <tr v-for="(res, dork) in mod.result" :key="dork">
+                                        <td class="intruo__modules__result"></td>
+                                        <td class="has-text-weight-bold">[[ dork ]]</td>
+                                        <td  class="has-text-weight-bold has-text-centered">
+                                            <a :href="res" target="_blank">Buscar dork expuesto <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><b>Descripción:</b> Google Dork o Google Hacking es una técnica en informática que utiliza operadores para filtrar información en el buscador de Google. Además podemos encontrar otras aplicaciones de agujeros de seguridad en la configuración y el código informático que se utilizan en las páginas web.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__PAGE_STRUCTURE_FINDER'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="5">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="intruo__modules__result">Resultado </td>
+                                        <th class="has-text-weight-bold">Código</th>
+                                        <th class="has-text-weight-bold">Label</th>
+                                        <th class="has-text-weight-bold">Descripción</th>
+                                        <th class="has-text-weight-bold">Links</th>
+                                    </tr>
+                                    <tr v-for="(res, code) in mod.result" :key="code">
+                                        <td class="intruo__modules__result"></td>
+                                        <td class="has-text-weight-bold">[[ code ]]</td>
+                                        <td class="has-text-weight-bold">[[ httpStatusCodes[code].label ]]</td>
+                                        <td class="has-text-weight-bold"><small class="is-size-7">[[ capitalize(httpStatusCodes[code].desc) ]]</small></td>
+                                        <td class="has-text-weight-bold">
+                                            <ul>
+                                                <li v-for="(link, idx) in res" :key="idx">
+                                                    <a :href="link">[[ link ]] <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><b>Descripción:</b> Utiliza un diccionario de rutas "comunes" para encontrar páginas visibles para el público. Puede presentar un agujero de seguridad si es que no es correcta la configuración.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-if="modTitle == 'INTRUO__PAGE_OWASP_SECURITY_HEADERS'">
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                                <thead class="has-background-warning">
+                                    <tr>
+                                        <th colspan="4">MÓDULO: [[ cleanModuleTitle(modTitle) ]] <span class="is-pulled-right is-size-7">Tiempo total de ejecución: [[ mod.time_execution ]]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4"><b>Descripción:</b> Las cabeceras HTTP son un gran refuerzo para la seguridad web de fácil implementación. Unas cabeceras de respuesta HTTP adecuadas pueden ayudar a prevenir vulnerabilidades de seguridad como Cross-Site Scripting, Clickjacking, divulgación de información y más.<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="has-text-centered" colspan="4"><b>En este caso se muestran TODAS LAS CABECERSAS FALTANTES dentro de la respuesta del servidor.</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" v-for="(item, link) in mod.result" :key="link">
+                                <thead>
+                                    <tr>
+                                        <th class="has-text-weight-bold has-text-centered" colspan="4">Link</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="has-text-centered" colspan="4">
+                                            <a :href="link" target="_blank">[[ link ]] <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></a>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="has-text-weight-bold has-text-centered">OWASP cabecera de seguridad</th>
+                                        <th class="has-text-weight-bold has-text-centered">Descripción</th>
+                                        <th class="has-text-weight-bold has-text-centered">¿Es obsoleto?</th>
+                                        <th class="has-text-weight-bold has-text-centered">Referencias</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="(obj, idx) in mod.result[link]" :key="idx">
+                                    <tr>
+                                        <!-- <td class="has-text-centered" colspan="4"><a :href="link" target="_blank">[[ link ]] <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></a></td> -->
+                                        <td class="has-text-centered">[[ idx ]]</td>
+                                        <td class="has-text-centered"><span class="is-size-7">[[ obj.desc ]]</span></td>
+                                        <template v-if="!obj.deprecated">
+                                            <td class="has-text-centered has-background-warning">
+                                                No
+                                            </td>
+                                        </template>
+                                        <template v-else-if="obj.deprecated">
+                                            <td class="has-text-centered has-background-danger">
+                                                Si
+                                            </td>
+                                        </template>
+                                        <td>
+                                            <ul>
+                                                <li v-for="(obj, idx) in obj.refs" :key="idx">
+                                                    <a :href="obj"><span class="is-size-7">[[ obj ]]</span> <span class="icon is-small"><i class="mdi mdi-open-in-new"></i></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                    </div>
+                    <div class="column is-12">
+                        <hr>
+                    </div>
+                    <div class="column is-12 is-align-items-center has-text-centered is-flex is-flex-direction-column is-justify-content-center">
+                        <h1 class="title is-4">DEBUG INFORMATION</h1>
+                        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                            <thead class="has-background-warning">
+                                <tr>
+                                    <th>Python version</th>
+                                    <th>Procesador</th>
+                                    <th>Machine</th>
+                                    <th>Arquitectura</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>[[ intruo_result.computer_information.debug_information.ptyhon_version ]]</td>
+                                    <td>[[ intruo_result.computer_information.debug_information.processor ]]</td>
+                                    <td>[[ intruo_result.computer_information.debug_information.machine ]]</td>
+                                    <td>[[ intruo_result.computer_information.debug_information.architecture[0] ]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-8 is-offset-2">
+                <br>
+                <nav class="level">
+                    <div class="level-left">
+                        <small class="level-item">
+                            <a href="github.com" target="_blank">
+                                <b-icon icon="github" size="is-medium"></b-icon>
+                            </a>
+                        </small>
+                    </div>
+                    <div class="level-right">
+                        <small class="level-item" style="color: var(--textLight)">
+                            <p><b>INTRUO</b> para UNIR - Maestría en Seguridad Informática con <b-icon icon="heart" size="is-small"></b-icon> por <a class="ml-1" href="https://www.linkedin.com/in/roberto-salas-564368128/" target="_blank"> Roberto Salas Hernández</a></p>
+                        </small>
+                        <small class="level-item" style="color: var(--textLight)">
+                            v.1.0.0 beta
+                        </small>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+    </section>
+    <script>
+    [*__JS_COMPILED__*]
+    </script>
+    <script>
+        new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: function() {
+                return {
+                    intruo_result: null,
+                    httpStatusCodes: {
+                        '100': { label: 'Continue', desc: 'indica al navegador que continúe haciendo su petición' },
+                        '101': { label: 'Switching Protocols', desc: 'indica al navegador que acepta el cambio de protocolo pedido.' },
+                        '102': { label: 'Processing', desc: 'indica al navegador que ha recibido la petición y está aun procesándola.' },
+                        '103': { label: 'Checkpoint', desc: 'reanudará una petición cancelada con anterioridad.' },
+                        '200': { label: 'OK', desc: 'todo se ha procesado de forma correcta.' },
+                        '201': { label: 'Created', desc: 'la petición se ha procesado y como resultado se ha creado un nuevo recurso.' },
+                        '202': { label: 'Accepted', desc: 'la petición ha sido aceptada pero todavía no se ha completado.' },
+                        '203': { label: 'Non-Authoritative Information', desc: 'indica que la petición se ha completado, pero se ha obtenido el recurso de otro servidor.' },
+                        '204': { label: 'No Content', desc: 'la petición se ha procesado con éxito, pero el resultado está vacío.' },
+                        '205': { label: 'Reset Content', desc: 'igual que el anterior, pero indicando al navegador que debe inicializar la página desde la que se realizó la petición.' },
+                        '206': { label: 'Partial Content', desc: 'se está devolviendo el contenido pedido de forma parcial. Útil para reanudar descargas que se han pausado.' },
+                        '207': { label: 'Multi-Status', desc: 'devuelve varias peticiones a la vez.' },
+                        '208': { label: 'Already Reported', desc: 'ya se devolvió el listado de elementos, así que no se vuelve a listar.' },
+                        '300': { label: 'Multiple Choices', desc: 'indica al navegador que existen varias alternativas para el contenido que ha pedido. Por ejemplo, un vídeo puede estar disponible en distintos formatos o calidades.' },
+                        '301': { label: 'Moved Permanently', desc: 'la página que estás buscando no está aquí y se ha movido permanentemente a una nueva ubicación.' },
+                        '302': { label: 'Found', desc: 'indica que la página o recurso está disponible en otra ubicación.' },
+                        '303': { label: 'See Other', desc: 'igual al anterior.' },
+                        '304': { label: 'Not Modified', desc: 'indica al navegador que la página no se ha modificado desde la última vez que se pidió. Así se puede evitar descargarla de nuevo, ahorrando ancho de banda.' },
+                        '305': { label: 'Use Proxy', desc: 'este recurso solo está disponible desde un proxy.' },
+                        '306': { label: 'Switch Proxy', desc: 'Este código ya no se usa.' },
+                        '307': { label: 'Temporary Redirect', desc: 'indica al navegador que este recurso o página se ha movido de sitio, pero todavía está disponible en esta dirección.' },
+                        '308': { label: 'Permanent Redirect', desc: 'similar al código 301, la página ha cambiado de lugar permanentemente.' },
+                        '400': { label: 'Bad Request', desc: 'algo ha ido mal con la petición. Si recibes este error, prueba a refrescar la página o actualizar tu navegador.' },
+                        '401': { label: 'Unauthorized', desc: 'no tienes permiso para recibir ese contenido.' },
+                        '402': { label: 'Payment Required', desc: 'en desuso por ahora.' },
+                        '403': { label: 'Forbidden', desc: 'la petición es correcta pero el servidor se niega a ofrecerte el recurso o página web. Es posible que necesites una cuenta en el servicio e iniciar sesión antes de poder acceder.' },
+                        '404': { label: 'Not found', desc: 'la petición no está disponible en el servidor o no se ha encontrado nada.' },
+                        '405': { label: 'Method Not Allowed', desc: 'no se permite el uso de ese método.' },
+                        '406': { label: 'Not Acceptable', desc: 'la petición solo puede generar un tipo de contenido distinto al que se especificó como aceptable.' },
+                        '407': { label: 'Proxy Authentication Required', desc: 'se requiere al cliente que se identifique mediante un proxy.' },
+                        '408': { label: 'Request Timeout', desc: 'el servidor ha pasado demasiado tiempo esperando una respuesta por parte del cliente.' },
+                        '409': { label: 'Conflict', desc: 'la petición no se pudo completar porque hubo un problema con ella.' },
+                        '410': { label: 'Gone', desc: 'esa página no existe, se borró. Este código es usado por buscadores como Google, que usan la información para eliminar contenido de su base de datos.' },
+                        '411': { label: 'Length Required', desc: 'el cliente debía indicar la longitud del contenido, pero no lo hizo.' },
+                        '412': { label: 'Precondition Failed', desc: 'el servidor no cumple las condiciones previas que se indicaban en la petición.' },
+                        '413': { label: 'Payload Too Large', desc: 'la petición es demasiado larga y el servidor se niega a procesarla.' },
+                        '414': { label: 'URI Too Long', desc: 'la dirección web es demasiado larga. Si recibes este error, difícilmente podrás solucionarlo pues no es problema tuyo, sino de la página que generó dicho enlace.' },
+                        '415': { label: 'Unsupported Media Type', desc: 'el tipo de archivo que se ha recibido es distinto al que se esperaba.' },
+                        '416': { label: 'Range Not Satisfiable', desc: 'el cliente ha pedido una porción de un recurso que es incorrecta.' },
+                        '417': { label: 'Expectation Failed', desc: 'el servidor no puede cumplir con las expectaciones de la cabecera.' },
+                        '418': { label: 'I\'m a teapot', desc: 'es un código de estado que nació como una broma de April\'s Fools. Puedes recibir uno visitando esta web.' },
+                        '421': { label: 'Misdirected Request', desc: 'el servidor es incapaz de producir una respuesta.' },
+                        '422': { label: 'Unprocessable Entity', desc: 'la petición era correcta pero tenía algún error semántico.' },
+                        '423': { label: 'Locked', desc: 'este recurso está bloqueado.' },
+                        '424': { label: 'Failed Dependency', desc: 'este recurso depende de otra respuesta, que falló.' },
+                        '426': { label: 'Upgrade Required', desc: 'el cliente debe usar un protocolo distinto.' },
+                        '428': { label: 'Precondition Required', desc: 'el servidor requiere que la petición sea condicional.' },
+                        '429': { label: 'Too Many Requests', desc: 'se han enviado demasiadas peticiones en un corto período de tiempo.' },
+                        '431': { label: 'Request Header Fields Too Large', desc: 'la cabecera o algunos de los campos de la cabecera son demeasiado grandes.' },
+                        '452': { label: 'Unavailable for Legal reasons', desc: 'el servidor deniega el accceso a este recurso por motivos legales.' },
+                    }
+                }
+            },
+            methods: {
+                cleanModuleTitle: function(moduleTitle) {
+                    return moduleTitle.split('__')[1].replace('_', ' ')
+                },
+                copyEmailAndOpenPage: function(inputId) {
+                    this.$refs[inputId][0].focus()
+                    this.$refs[inputId][0].select()
+                    document.execCommand('copy')
+
+                    this.$buefy.toast.open({
+                        message: 'Se ha copiado el email a tu portapapeles. Se abrirá la página en dos segundos para que se pueda buscar si el correo se encuentra comprometido.',
+                        position: 'is-bottom',
+                        type: 'is-warning',
+                        duration: 3000
+                    })
+
+                    setTimeout(() => {
+                        window.open("https://haveibeenpwned.com/")
+                    }, 2000);
+                    // this.$refs[input_id].focus()
+                    // this.$refs[input_id].select()
+                },
+                capitalize: function(word) {
+                    const lower = word.toLowerCase()
+                    return word.charAt(0).toUpperCase() + word.slice(1)
+                }
+            },
+            computed: {},
+            created: function() {
+                this.intruo_result = intruo_result
+            }
+        })
+    </script>
+</body>
+</html>

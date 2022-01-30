@@ -1,0 +1,12 @@
+index
+images
+download
+wp-login
+assets
+sitemap
+login
+forum
+profile
+admin
+xml
+copyright

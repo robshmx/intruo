@@ -1,0 +1,80 @@
+:root {
+    --brandColor: hsl(166, 67%, 51%);
+    --background: rgb(247, 247, 247);
+    --textDark: hsla(0, 0%, 0%, 0.66);
+    --textLight: hsla(0, 0%, 0%, 0.33);
+}
+
+body {
+    font-family: 'Abel', sans-serif;
+    background: rgb(232,38,41);
+    background: radial-gradient(circle, rgba(232,38,41,1) 0%, rgba(171,60,111,1) 100%);
+    min-height: 101.2vh;
+    height: 100%;
+    color: var(--textDark);
+}
+hr {
+    margin: 0.6rem 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--textDark);
+}
+
+.field:not(:last-child) {
+    margin-bottom: 1rem;
+}
+.register {
+    margin-top: 10rem;
+    background: white;
+    border-radius: 10px;
+}
+.left, .right {
+    padding: 4.5rem;
+    position: relative;
+}
+.left {
+    border-right: 5px solid var(--background);
+}
+.left .title {
+    font-weight: 800;
+    font-size: 3rem;
+    letter-spacing: 2px;
+}
+.left .colored {
+    color: var(--brandColor);
+    font-weight: 500;
+    margin-top: 1rem !important;
+    letter-spacing: -1px;
+}
+.left p {
+    color: var(--textLight);
+    font-size: 1.15rem;
+}
+.right .title {
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+}
+.right .description {
+    margin-top: 1rem;
+    margin-bottom: 1rem !important;
+    color: var(--textLight);
+    font-size: 0.6rem;
+}
+.right small {
+    color: var(--textLight);
+}
+input {
+    font-size: 1rem;
+}
+input:focus {
+    border-color: var(--brandColor) !important;
+    box-shadow: 0 0 0 1px var(--brandColor) !important;
+}
+
+
+.logo {
+    max-width: 150px;
+}
