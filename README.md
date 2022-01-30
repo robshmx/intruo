@@ -1,5 +1,6 @@
 # INTRUO
 ## Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea
+[<img src="https://cdn.funboxing.mx/intruo/intruo_cp.png">](https://github.com/robshmx/intruo)
 
 For python > 3x
 Create a virtual enviroment with
