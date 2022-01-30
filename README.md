@@ -1,5 +1,5 @@
 # INTRUO
-##Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea
+## Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea
 
 For python > 3x
 Create a virtual enviroment with
