@@ -18,7 +18,7 @@ new Vue({
                     label: 'Seleccione su Chrome Driver'
                 },
                 domain: {
-                    value: 'http://wordpress.robertosalasunir.huh.mx/',
+                    value: 'http://www.example.com/',
                     type: null,
                     message: '',
                     label: 'Ingrese la URL'
