@@ -1,3 +1,5 @@
+* Disclaimer: This software is for learning purposes only. Do not use in production or for other purposes. *
+
 # INTRUO
 ## Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea
 [<img src="https://cdn.funboxing.mx/intruo/intruo_cp.png">](https://github.com/robshmx/intruo)
