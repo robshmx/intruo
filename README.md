@@ -1,4 +1,4 @@
-Disclaimer: This software is for learning purposes only. Do not use in production or for other purposes.*
+> Disclaimer: *This software is for learning purposes only. Do not use in production or for other purposes.*
 
 # INTRUO
 ## Herramienta integral para el escaneo de información y vulnerabilidades de sitios en línea
